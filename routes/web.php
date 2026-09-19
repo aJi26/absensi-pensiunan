@@ -32,4 +32,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/admin/export-excel', [AdminController::class, 'exportExcel'])->name('admin.export.excel');
         Route::get('/admin/export-pdf', [AdminController::class, 'exportPdf'])->name('admin.export.pdf');
         Route::post('/admin/karyawan/{id}/update', [AdminController::class, 'updateKaryawan'])->name('admin.karyawan.update');
+        Route::get('/cetak-individual/{id}', [AdminController::class, 'cetakIndividual'])->name('admin.cetak.individual');
+        Route::post('/karyawan/store', [AdminController::class, 'storeKaryawan'])->name('admin.karyawan.store');
+        Route::delete('/karyawan/{id}/delete', [AdminController::class, 'destroyKaryawan'])->name('admin.karyawan.delete');
     });

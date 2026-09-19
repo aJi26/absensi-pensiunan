@@ -90,4 +90,43 @@ class AdminController extends Controller
 
         return back()->with('success', 'Data karyawan berhasil diperbarui!');
     }
+
+    // Tambah Data Karyawan Baru (Create)
+    public function storeKaryawan(Request $request)
+    {
+        $request->validate([
+            'npp' => 'required|unique:karyawans,npp',
+            'nama' => 'required',
+            'no_telepon' => 'nullable',
+            'tipe' => 'required|in:karyawan,ahli_waris',
+        ], [
+            'npp.unique' => 'NPP sudah terdaftar dalam sistem!'
+        ]);
+
+        Karyawan::create([
+            'npp' => $request->npp,
+            'nama' => $request->nama,
+            'no_telepon' => $request->no_telepon,
+            'tipe' => $request->tipe,
+        ]);
+
+        return back()->with('success', 'Data karyawan baru berhasil ditambahkan!');
+    }
+
+    // Hapus Data Karyawan (Delete)
+    public function destroyKaryawan($id)
+    {
+        $karyawan = Karyawan::findOrFail($id);
+        $karyawan->delete();
+
+        return back()->with('success', 'Data karyawan berhasil dihapus!');
+    }
+
+    // Cetak Dokumen Satuan / Individual Karyawan
+    public function cetakIndividual($id)
+    {
+        $rekap = Rekap::with('karyawan')->findOrFail($id);
+        
+        return view('admin.cetak_individual', compact('rekap'));
+    }
 }

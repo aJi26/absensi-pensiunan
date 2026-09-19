@@ -28,7 +28,7 @@
 
     <!-- Content Area -->
     <div class="flex-1 p-8">
-        <h1 class="text-xl font-bold text-gray-800 mb-6">2. Cetak (Laporan)</h1>
+        <h1 class="text-xl font-bold text-gray-800 mb-6">Cetak (Laporan)</h1>
 
         <!-- Filter -->
         <form action="{{ route('admin.cetak') }}" method="GET" class="flex gap-4 mb-6 bg-white p-4 rounded-xl border border-gray-200">
@@ -60,6 +60,7 @@
                         <th class="p-3">NPP</th>
                         <th class="p-3">Tampak Hasil Potret Wajah</th>
                         <th class="p-3">Tanggal Pengisian</th>
+                        <th class="p-3 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +73,11 @@
                             <img src="{{ asset('storage/' . $item->foto) }}" class="w-10 h-10 object-cover rounded-full border">
                         </td>
                         <td class="p-3">{{ $item->tanggal_pengisian->format('d M Y H:i') }} WIB</td>
+                        <td class="p-3 text-center">
+                        <a href="{{ route('admin.cetak.individual', $item->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1.5 rounded-lg text-xs shadow-sm transition inline-block">
+                            Cetak
+                        </a>
+                    </td>
                     </tr>
                     @empty
                     <tr>

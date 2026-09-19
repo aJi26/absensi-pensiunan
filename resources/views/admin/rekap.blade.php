@@ -19,15 +19,19 @@
                 <a href="{{ route('admin.edit') }}" class="block p-2 hover:bg-blue-900 rounded">✏️ Edit Data</a>
             </nav>
         </div>
+        <form action="{{ route('admin.logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="w-full bg-red-600 text-xs py-2 rounded font-bold">🚪 Logout</button>
+        </form>
     </div>
 
     <div class="flex-1 p-8">
-        <h1 class="text-xl font-bold text-gray-800 mb-6">1. Rekap Data</h1>
+        <h1 class="text-xl font-bold text-gray-800 mb-6">Rekap Data</h1>
 
         <div class="grid grid-cols-2 gap-6">
             <!-- Rekap Bulanan -->
             <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <h3 class="font-bold text-sm text-gray-800 mb-1">1.1 Rekap Bulanan</h3>
+                <h3 class="font-bold text-sm text-gray-800 mb-1">1. Rekap Bulanan</h3>
                 <p class="text-xs text-gray-400 mb-6">Download rekap data berdasarkan bulan saat ini.</p>
                 <div class="flex gap-3">
                     <a href="{{ route('admin.export.excel', ['bulan' => date('m')]) }}" class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded hover:bg-emerald-700">📊 Bentuk Excel</a>
@@ -37,7 +41,7 @@
 
             <!-- Rekap Tahunan -->
             <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                <h3 class="font-bold text-sm text-gray-800 mb-1">1.2 Rekap Tahunan</h3>
+                <h3 class="font-bold text-sm text-gray-800 mb-1">2. Rekap Tahunan</h3>
                 <p class="text-xs text-gray-400 mb-6">Download rekap data berdasarkan tahun berjalan.</p>
                 <div class="flex gap-3">
                     <a href="{{ route('admin.export.excel') }}" class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded hover:bg-emerald-700">📊 Bentuk Excel</a>

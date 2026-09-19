@@ -15,9 +15,9 @@
                 <span class="text-xs text-gray-500 font-semibold">PT Jasamarga Transjawa Tol</span>
             </div>
 
-            <h1 class="text-xl font-bold text-blue-900 mb-1">Selamat Datang di</h1>
-            <h2 class="text-lg font-semibold text-gray-800 mb-2">Sistem Dokumentasi Karyawan</h2>
-            <p class="text-xs text-gray-500 mb-8">Silakan pilih jenis akses untuk melanjutkan ke halaman login.</p>
+            <h1 class="text-xl font-bold text-blue-900 text-center mb-1">Selamat Datang di</h1>
+            <h2 class="text-lg font-semibold text-gray-800 text-center mb-2">Sistem Dokumentasi Karyawan</h2>
+            <p class="text-xs text-gray-500 text-center mb-8">Silakan pilih jenis akses untuk melanjutkan ke halaman login.</p>
 
             <!-- Pilihan Login Karyawan -->
             <a href="{{ route('karyawan.login.form') }}" class="flex items-center justify-between p-4 mb-4 border rounded-xl hover:bg-blue-50 transition border-gray-200">
@@ -44,8 +44,8 @@
             </a>
         </div>
 
-        <!-- Footer Image Banner Mockup -->
-        <div class="mt-8 rounded-xl overflow-hidden bg-blue-900 text-white p-4 text-center">
+        <!-- Footer Banner Edge-to-Edge dengan Lengkungan Bagian Atas -->
+        <div class="-mx-6 -mb-6 bg-blue-900 text-white py-4 px-6 text-center mt-8 rounded-t-2xl">
             <p class="text-xs italic">Bersama Membangun Jalan untuk Negeri</p>
         </div>
     </div>
