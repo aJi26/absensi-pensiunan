@@ -20,14 +20,15 @@
 
             <!-- Salam & Info User -->
             <p class="text-xs text-gray-500">Selamat Datang,</p>
-            <h2 class="font-bold text-sm text-gray-800 mb-4">NPP {{ $karyawan->npp }}</h2>
+            <h2 class="font-bold text-base text-gray-800">{{ $karyawan->nama }}</h2>
+            <h3 class="font-semibold text-xs text-blue-900 mb-4">NPP: {{ $karyawan->npp }}</h3>
 
             <!-- Status Data Tersimpan -->
-            <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl mb-6 flex items-center justify-between">
+            <a href="{{ route('karyawan.riwayat') }}" class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl mb-6 flex items-center justify-between block hover:bg-emerald-100/50 transition">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">✓</div>
                     <div>
-                        <p class="text-[10px] text-gray-500 font-semibold">Status Data</p>
+                        <p class="text-[10px] text-gray-500 font-semibold">Status Data Terakhir</p>
                         <h3 class="font-bold text-xs text-emerald-700">Tersimpan</h3>
                         <p class="text-[10px] text-gray-400">
                             {{ $lastRekap ? \Carbon\Carbon::parse($lastRekap->tanggal_pengisian)->format('d M Y | H:i') . ' WIB' : 'Belum ada data' }}
@@ -35,7 +36,7 @@
                     </div>
                 </div>
                 <span class="text-gray-400 text-sm">&rsaquo;</span>
-            </div>
+            </a>
 
             <!-- Menu Utama -->
             <h3 class="font-bold text-xs text-gray-700 mb-3">Menu Utama</h3>
@@ -48,7 +49,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('karyawan.info') }}" class="p-4 bg-gray-50 border rounded-2xl flex flex-col justify-between hover:bg-blue-50 transition">
+                <a href="{{ route('karyawan.riwayat') }}" class="p-4 bg-gray-50 border rounded-2xl flex flex-col justify-between hover:bg-blue-50 transition">
                     <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center text-sm mb-3">📄</div>
                     <div>
                         <h4 class="font-bold text-xs text-gray-800">Riwayat</h4>
@@ -56,16 +57,16 @@
                     </div>
                 </a>
 
-                <div class="p-4 bg-gray-50 border rounded-2xl flex flex-col justify-between">
+                <a href="{{ route('karyawan.panduan') }}" class="p-4 bg-gray-50 border rounded-2xl flex flex-col justify-between hover:bg-blue-50 transition">
                     <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-800 flex items-center justify-center text-sm mb-3">📖</div>
                     <div>
                         <h4 class="font-bold text-xs text-gray-800">Panduan</h4>
                         <p class="text-[10px] text-gray-400">Cara Penggunaan</p>
                     </div>
-                </div>
+                </a>
 
-                <a href="{{ route('welcome') }}" class="p-4 bg-gray-50 border rounded-2xl flex flex-col justify-between hover:bg-red-50 transition">
-                    <div class="w-8 h-8 rounded-lg bg-gray-200 text-gray-700 flex items-center justify-center text-sm mb-3">🚪</div>
+                <a href="{{ route('karyawan.logout') }}" class="p-4 bg-gray-50 border rounded-2xl flex flex-col justify-between hover:bg-red-50 transition">
+                    <div class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-sm mb-3">🚪</div>
                     <div>
                         <h4 class="font-bold text-xs text-gray-800">Keluar</h4>
                         <p class="text-[10px] text-gray-400">Logout Aplikasi</p>
@@ -80,15 +81,15 @@
                 <div class="text-base">🏠</div>
                 <span>Beranda</span>
             </a>
-            <div>
+            <a href="{{ route('karyawan.riwayat') }}" class="hover:text-blue-900">
                 <div class="text-base">📄</div>
                 <span>Riwayat</span>
-            </div>
-            <div>
+            </a>
+            <a href="{{ route('karyawan.panduan') }}" class="hover:text-blue-900">
                 <div class="text-base">📖</div>
                 <span>Panduan</span>
-            </div>
-            <a href="{{ route('karyawan.info') }}">
+            </a>
+            <a href="{{ route('karyawan.info') }}" class="hover:text-blue-900">
                 <div class="text-base">👤</div>
                 <span>Profil</span>
             </a>

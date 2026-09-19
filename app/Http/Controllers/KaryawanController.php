@@ -20,6 +20,36 @@ class KaryawanController extends Controller
         return view('user.info', compact('karyawan'));
     }
 
+    // Halaman Riwayat Presensi
+public function riwayat()
+{
+    $karyawanId = session('karyawan_id');
+    if (!$karyawanId) return redirect()->route('welcome');
+
+    $karyawan = Karyawan::findOrFail($karyawanId);
+    $rekaps = Rekap::where('karyawan_id', $karyawanId)->latest()->get();
+
+    return view('user.riwayat', compact('karyawan', 'rekaps'));
+}
+
+// Halaman Panduan Penggunaan
+public function panduan()
+{
+    $karyawanId = session('karyawan_id');
+    if (!$karyawanId) return redirect()->route('welcome');
+
+    $karyawan = Karyawan::findOrFail($karyawanId);
+
+    return view('user.panduan', compact('karyawan'));
+}
+
+// Logout Karyawan
+public function logout(Request $request)
+{
+    session()->forget(['karyawan_id', 'karyawan_npp', 'last_rekap_id']);
+    return redirect()->route('welcome');
+}
+
     // Halaman Kamera / Scan Wajah
     public function scan()
     {

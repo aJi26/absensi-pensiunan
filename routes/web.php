@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
         Route::post('/karyawan/scan-store', [KaryawanController::class, 'storeScan'])->name('karyawan.scan.store');
         Route::get('/karyawan/berhasil', [KaryawanController::class, 'success'])->name('karyawan.success');
         Route::get('/karyawan/beranda', [KaryawanController::class, 'beranda'])->name('karyawan.beranda');
+        Route::get('/karyawan/riwayat', [KaryawanController::class, 'riwayat'])->name('karyawan.riwayat');
+        Route::get('/karyawan/panduan', [KaryawanController::class, 'panduan'])->name('karyawan.panduan');
+        Route::get('/karyawan/logout', [KaryawanController::class, 'logout'])->name('karyawan.logout');
     });
 
     // Alur Admin (Web Dashboard View)
