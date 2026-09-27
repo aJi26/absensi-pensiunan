@@ -25,9 +25,9 @@ class RekapExport implements FromCollection, WithHeadings
 
         return $query->get()->map(function($item, $key) {
             return [
-                'No' => $key + 1,
-                'Nama' => $item->karyawan->nama,
+                'No' => $key + 1,                
                 'NPP' => $item->karyawan->npp,
+                'Nama' => $item->karyawan->nama,                
                 'Tanggal Pengisian' => $item->tanggal_pengisian->format('d/m/Y H:i') . ' WIB',
             ];
         });
@@ -35,6 +35,6 @@ class RekapExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['No', 'Nama', 'NPP', 'Tanggal Pengisian'];
+        return ['No', 'NPP', 'Nama', 'Tanggal Pengisian'];
     }
 }

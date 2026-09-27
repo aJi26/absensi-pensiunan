@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rekap Data Karyawan</title>
+    <title>Rekap Data Presensi</title>
     <style>
         body { font-family: sans-serif; font-size: 12px; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
@@ -12,15 +12,15 @@
 </head>
 <body>
     <div class="header">
-        <h2>PT JASAMARGA TRANSJAWA TOL - RO3</h2>
-        <h3>Rekap Data Karyawan / Pensiunan</h3>
+        <h2>PT JASAMARGA</h2>
+        <h3>Rekap Data Presensi Karyawan / Ahli Waris</h3>
     </div>
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama</th>
                 <th>NPP</th>
+                <th>Nama</th>
                 <th>Tanggal Pengisian</th>
             </tr>
         </thead>
@@ -28,8 +28,8 @@
             @foreach($rekaps as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->karyawan->nama }}</td>
                 <td>{{ $item->karyawan->npp }}</td>
+                <td>{{ $item->karyawan->nama }}</td>
                 <td>{{ $item->tanggal_pengisian->format('d/m/Y H:i') }} WIB</td>
             </tr>
             @endforeach

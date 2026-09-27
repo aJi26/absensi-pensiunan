@@ -36,12 +36,12 @@
         <!-- Detail Data Karyawan -->
         <div class="bg-gray-50 p-4 rounded-xl text-xs space-y-3 mb-6">
             <div class="flex justify-between border-b pb-2">
-                <span class="text-gray-400">Nama Lengkap</span>
-                <span class="font-bold text-gray-800">{{ $rekap->karyawan->nama }}</span>
-            </div>
-            <div class="flex justify-between border-b pb-2">
                 <span class="text-gray-400">NPP</span>
                 <span class="font-bold text-gray-800">{{ $rekap->karyawan->npp }}</span>
+            </div>    
+            <div class="flex justify-between border-b pb-2">
+                <span class="text-gray-400">Nama Lengkap</span>
+                <span class="font-bold text-gray-800">{{ $rekap->karyawan->nama }}</span>
             </div>
             <div class="flex justify-between border-b pb-2">
                 <span class="text-gray-400">No. Telepon</span>

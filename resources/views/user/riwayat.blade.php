@@ -9,11 +9,18 @@
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
     <div class="w-full max-w-md bg-white min-h-screen shadow-lg p-6 flex flex-col justify-between pb-16">
         <div>
-            <!-- Header & Back Button -->
-            <div class="flex justify-between items-center mb-6">
-                <a href="{{ route('karyawan.beranda') }}" class="text-gray-600 text-xl font-bold hover:text-blue-900">&larr;</a>
+            <!-- Header & Back Button (Isolasi Header dengan Relative/Absolute) -->
+            <div class="relative flex items-center justify-center mb-6 min-h-[32px]">
+                <!-- Tombol Back (Kiri) -->
+                <a href="{{ route('karyawan.beranda') }}" class="absolute left-0 text-gray-600 text-xl font-bold hover:text-blue-900">&larr;</a>
+                
+                <!-- Judul (Presisi di Tengah Layar) -->
                 <span class="font-bold text-sm text-gray-800">Riwayat Presensi</span>
-                <div class="bg-blue-900 text-yellow-400 px-2 py-0.5 rounded text-xs font-bold">RO3</div>
+                
+                <!-- Logo (Kanan) -->
+                <div class="absolute right-0 flex items-center">
+                    <img src="{{ asset('Logo DPJM.png') }}" alt="Logo Jasamarga RO3" class="h-5 w-auto object-contain">
+                </div>
             </div>
 
             <!-- Daftar Riwayat -->
@@ -51,10 +58,6 @@
             <a href="{{ route('karyawan.riwayat') }}" class="text-blue-900 font-bold">
                 <div class="text-base">📄</div>
                 <span>Riwayat</span>
-            </a>
-            <a href="{{ route('karyawan.panduan') }}" class="hover:text-blue-900">
-                <div class="text-base">📖</div>
-                <span>Panduan</span>
             </a>
             <a href="{{ route('karyawan.info') }}" class="hover:text-blue-900">
                 <div class="text-base">👤</div>
