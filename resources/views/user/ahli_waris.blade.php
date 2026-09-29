@@ -12,7 +12,7 @@
         <div class="relative flex items-center justify-center mb-6 min-h-[32px]">
             <a href="{{ route('karyawan.info') }}" class="absolute left-0 text-gray-600 text-xl font-bold hover:text-blue-900 transition">&larr;</a>
             <span class="font-bold text-sm text-gray-800">Pelaporan Ahli Waris</span>
-            <img src="{{ asset('Logo DPJM.png') }}" class="absolute right-0 h-6 w-auto object-contain">
+            <img src="{{ asset('Logo DPJM.png') }}" class="absolute right-0 h-5 w-auto object-contain">
         </div>
 
         @if(session('error'))
@@ -102,6 +102,41 @@
                 phoneError.classList.add('hidden');
             }
         }
+
+        // --- SISTEM AUTO-SAVE & RESTORATION DENGAN SESSIONSTORAGE ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const fields = ['nama_ahli_waris', 'hubungan_ahli_waris', 'no_hp_ahli_waris'];
+
+            // 1. Isikan kembali data dari memori browser jika pengguna kembali dari halaman kamera
+            fields.forEach(fieldName => {
+                const input = document.querySelector(`[name="${fieldName}"]`);
+                if (input) {
+                    const savedValue = sessionStorage.getItem(fieldName);
+                    if (savedValue) {
+                        input.value = savedValue;
+                        if (fieldName === 'no_hp_ahli_waris') {
+                            validatePhone(input);
+                        }
+                    }
+
+                    // 2. Simpan nilai setiap kali diketik atau dipilih oleh pengguna
+                    input.addEventListener('input', function() {
+                        sessionStorage.setItem(fieldName, this.value);
+                    });
+                    input.addEventListener('change', function() {
+                        sessionStorage.setItem(fieldName, this.value);
+                    });
+                }
+            });
+
+            // 3. Bersihkan memori sementara browser saat form akhir berhasil disubmit
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function() {
+                    sessionStorage.clear();
+                });
+            }
+        });
     </script>
 </body>
 </html>

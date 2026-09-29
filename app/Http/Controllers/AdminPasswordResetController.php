@@ -15,6 +15,10 @@ class AdminPasswordResetController extends Controller
     // 1. Tampilkan Form Minta Email
     public function showForgotForm()
     {
+        if (auth()->check()) {
+        return redirect()->route('admin.dashboard');
+        }
+
         return view('admin.auth.forgot-password');
     }
 
@@ -55,6 +59,10 @@ class AdminPasswordResetController extends Controller
     // 3. Tampilkan Form Input Password Baru
     public function showResetForm(Request $request, $token)
     {
+        if (auth()->check()) {
+        return redirect()->route('admin.dashboard');
+        }
+
         return view('admin.auth.reset-password', [
             'token' => $token,
             'email' => $request->email

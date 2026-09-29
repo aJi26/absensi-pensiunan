@@ -194,6 +194,12 @@
             dropdown.classList.toggle('hidden');
         }
 
+        // Mencegah tombol Back browser kembali ke halaman login/welcome
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
         window.addEventListener('click', function(e) {
             const dropdown = document.getElementById('profileDropdown');
             const button = e.target.closest('button');

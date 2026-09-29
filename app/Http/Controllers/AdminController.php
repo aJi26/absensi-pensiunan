@@ -37,14 +37,13 @@ class AdminController extends Controller
         return view('admin.karyawan', compact('karyawans', 'search'));
     }
 
-    // Reset Wajah (Dinamis Sesuai Disk .env)
+    // Reset Wajah dari Storage Public Lokal
     public function resetWajah($id)
     {
         $karyawan = Karyawan::findOrFail($id);
-        $disk = config('filesystems.default', 'public');
 
-        if ($karyawan->foto_referensi && Storage::disk($disk)->exists($karyawan->foto_referensi)) {
-            Storage::disk($disk)->delete($karyawan->foto_referensi);
+        if ($karyawan->foto_referensi && Storage::disk('public')->exists($karyawan->foto_referensi)) {
+            Storage::disk('public')->delete($karyawan->foto_referensi);
         }
 
         $karyawan->foto_referensi = null;
@@ -206,14 +205,13 @@ class AdminController extends Controller
         return back()->with('success', 'Data karyawan baru berhasil ditambahkan!');
     }
 
-    // Hapus Karyawan (Dinamis Sesuai Disk .env)
+    // Hapus Karyawan dari Storage Public Lokal
     public function destroyKaryawan($id)
     {
         $karyawan = Karyawan::findOrFail($id);
-        $disk = config('filesystems.default', 'public');
         
-        if ($karyawan->foto_referensi && Storage::disk($disk)->exists($karyawan->foto_referensi)) {
-            Storage::disk($disk)->delete($karyawan->foto_referensi);
+        if ($karyawan->foto_referensi && Storage::disk('public')->exists($karyawan->foto_referensi)) {
+            Storage::disk('public')->delete($karyawan->foto_referensi);
         }
 
         $karyawan->delete();

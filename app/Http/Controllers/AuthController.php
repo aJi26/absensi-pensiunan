@@ -48,6 +48,11 @@ class AuthController extends Controller
     // Halaman Form Login Admin
     public function showLoginAdmin()
     {
+        // Jika admin sudah login, cegah akses form login admin & lempar ke dashboard
+        if (auth()->check()) {
+            return redirect()->route('admin.dashboard');
+        }
+    
         return view('admin.login');
     }
 

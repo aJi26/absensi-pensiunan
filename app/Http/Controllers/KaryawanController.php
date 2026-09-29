@@ -13,6 +13,11 @@ class KaryawanController extends Controller
     // Method untuk menampilkan halaman form login
     public function showLoginForm(Request $request)
     {
+        // Jika karyawan sudah login, cegah akses form login & lempar ke beranda
+        if (session('karyawan_id')) {
+            return redirect()->route('karyawan.beranda');
+        }
+    
         $loginType = $request->query('type', session('is_ahli_waris_mode') ? 'ahli-waris' : 'karyawan');
         return view('user.login', compact('loginType'));
     }
@@ -92,7 +97,15 @@ class KaryawanController extends Controller
 
     public function logout(Request $request)
     {
-        session()->forget(['karyawan_id', 'karyawan_npp', 'last_rekap_id']);
+        // 1. Bersihkan seluruh data sesi (termasuk variabel temporary)
+        session()->flush();
+
+        // 2. Invalidate session agar ID sesi lama hangus total
+        $request->session()->invalidate();
+
+        // 3. Buat ulang token CSRF baru demi keamanan
+        $request->session()->regenerateToken();
+
         return redirect()->route('welcome');
     }
 
@@ -110,7 +123,7 @@ class KaryawanController extends Controller
         return view('user.registrasi_wajah', compact('karyawan'));
     }
 
-    // Simpan Foto Master (Dinamis Sesuai Disk .env)
+    // Simpan Foto Master ke Disk Public Lokal
     public function storeRegistrasi(Request $request)
     {
         try {
@@ -129,13 +142,8 @@ class KaryawanController extends Controller
             $imageParts = explode(";base64,", $request->image);
             $imageBase64 = base64_decode(end($imageParts));
 
-            $disk = config('filesystems.default', 'public');
-            if ($disk === 'public' && !Storage::disk('public')->exists('referensi')) {
-                Storage::disk('public')->makeDirectory('referensi');
-            }
-
             $fileName = 'ref_' . $karyawan->npp . '_' . time() . '.jpg';
-            Storage::disk($disk)->put('referensi/' . $fileName, $imageBase64);
+            Storage::disk('public')->put('referensi/' . $fileName, $imageBase64);
 
             $karyawan->foto_referensi = 'referensi/' . $fileName;
             $karyawan->face_descriptor = json_encode($request->descriptor);
@@ -163,6 +171,13 @@ class KaryawanController extends Controller
         if (!$karyawanId) return redirect()->route('welcome');
 
         $karyawan = Karyawan::findOrFail($karyawanId);
+
+        // Jika sudah beralih ke Ahli Waris, tolak akses dan kembalikan ke beranda
+        $rawTipe = strtolower(trim($karyawan->tipe_keanggotaan ?? ''));
+        if (in_array($rawTipe, ['ahli waris', 'ahli_waris', 'ahli-waris'])) {
+            return redirect()->route('karyawan.beranda')->with('error', 'Akun Anda sudah berstatus Ahli Waris.');
+        }
+
         return view('user.ahli_waris', compact('karyawan'));
     }
 
@@ -220,13 +235,8 @@ class KaryawanController extends Controller
         $imageParts = explode(";base64,", $faceData['image']);
         $imageBase64 = base64_decode(end($imageParts));
 
-        $disk = config('filesystems.default', 'public');
-        if ($disk === 'public' && !Storage::disk('public')->exists('referensi')) {
-            Storage::disk('public')->makeDirectory('referensi');
-        }
-
         $fileName = 'ref_ahliwaris_' . $karyawan->npp . '_' . time() . '.jpg';
-        Storage::disk($disk)->put('referensi/' . $fileName, $imageBase64);
+        Storage::disk('public')->put('referensi/' . $fileName, $imageBase64);
 
         $karyawan->tipe_keanggotaan = 'Ahli Waris';
         $karyawan->nama_ahli_waris = $request->nama_ahli_waris;
@@ -270,7 +280,7 @@ class KaryawanController extends Controller
         return view('user.scan', compact('karyawan', 'presensiBulanIni'));
     }
 
-    // Simpan Foto Scan Presensi (Dinamis Sesuai Disk .env)
+    // Simpan Foto Scan Presensi ke Disk Public Lokal
     public function storeScan(Request $request)
     {
         try {
@@ -297,13 +307,8 @@ class KaryawanController extends Controller
             $imageParts = explode(";base64,", $request->image);
             $imageBase64 = base64_decode(end($imageParts));
 
-            $disk = config('filesystems.default', 'public');
-            if ($disk === 'public' && !Storage::disk('public')->exists('scans')) {
-                Storage::disk('public')->makeDirectory('scans');
-            }
-
             $fileName = 'scan_' . $karyawanId . '_' . time() . '.jpg';
-            Storage::disk($disk)->put('scans/' . $fileName, $imageBase64);
+            Storage::disk('public')->put('scans/' . $fileName, $imageBase64);
 
             $rekap = Rekap::create([
                 'karyawan_id' => $karyawanId,

@@ -129,5 +129,12 @@
             </a>
         </div>
     </div>
+    <script>
+    // Mencegah tombol Back browser kembali ke halaman login/welcome
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+    </script>
 </body>
 </html>
